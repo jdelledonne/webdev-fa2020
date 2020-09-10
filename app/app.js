@@ -12,7 +12,18 @@ angular.module('app').component('home', home);
 
 // Home Controller with dependency injection using the array method
 angular.module('app').controller('HomeController', ['ExampleService', function (ExampleService) {
-    this.exampleVariable = "I am the home component!";
+    const $ctrl = this;
+    console.log('example service: ', ExampleService);
+    
+    // Call the getData function: getData is an async request
+    ExampleService.getData().then(function(result) {
+        console.log('result: ', result);
+        $ctrl.exampleVariable = result;
+        $ctrl.artist = $ctrl.exampleVariable['data']['artists']['0']['name']
+        console.log($ctrl.artist);
+        console.log('example var: ', $ctrl.exampleVariable);
+    });
+    
 }]);
 /*--------------------- Home Component ---------------------*/
 
@@ -34,11 +45,47 @@ angular.module('app').controller('SettingsController', SettingsController);
 /*--------------------- Settings Component ---------------------*/
 
 /*--------------------- Example Service ---------------------*/
-function ExampleService() {
+// dependency injection: this depends on $http
+function ExampleService($http) {
+    // 'this' refers to example service
+    
     // Services are Singletons
     // Properties
     // Methods
+    this.getData = getData;
+    
+    // Function to get data from 3rd party API
+    function getData() {
+        return $http({
+            method: 'GET',
+            url: 'https://api.spotify.com/v1/albums/0sNOF9WDwhWunNAHPD3Baj',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer BQBIxSKjy-859-zRfqOEJTaA22oVimpOWJkhDweQSP2yyt5PsoxYAJnkRzw9hl8UtGOclGPvDEdrAosgy1TLNzvM0Cj42QBA92ej3B1ADuvPqIbIy_-AldMtoLsMFcafn8oUgANHANn52zb1PzC1xA'
+            }
+        })
+    }
 }
+ExampleService.$inject = ['$http'];
 angular.module('app').service('ExampleService', ExampleService)
 /*--------------------- Example Service ---------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
