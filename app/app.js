@@ -62,7 +62,7 @@ function ExampleService($http) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQBIxSKjy-859-zRfqOEJTaA22oVimpOWJkhDweQSP2yyt5PsoxYAJnkRzw9hl8UtGOclGPvDEdrAosgy1TLNzvM0Cj42QBA92ej3B1ADuvPqIbIy_-AldMtoLsMFcafn8oUgANHANn52zb1PzC1xA'
+                'Authorization': 'Bearer BQAZYnW0h5kcYUOhhg8M36HSbajgEIxfCgwGkcd6GyJq_fKdJgAWlmbxAn-hK3PrAuX5K0rCQOLtBKqFcm3K0Wnplii85v4cRuf5YAhV0tKPwJB6vZB7ZmBWcnjOQNo-J2bXj1xDZSHrVP8cGNTqJA'
             }
         })
     }
