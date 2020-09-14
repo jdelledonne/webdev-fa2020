@@ -15,6 +15,18 @@
     <h1> {{ $ctrl.artist }} </h1>
 </div>
 
+<div>
+    <form novalidate>
+        <label>Enter Album ID: <input type="text" ng-model="artistname" id="artistname"/></label>
+        <button ng-click="$ctrl.getName()">Submit</button>
+    </form>
+    
+</div>
+
+<div>
+    <p> {{ artistname }}</p>
+</div>
+
 <!-- Footer -->
 <br>
 <hr>

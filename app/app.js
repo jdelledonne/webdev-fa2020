@@ -15,13 +15,28 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
     const $ctrl = this;
     console.log('example service: ', ExampleService);
     
+    // 0sNOF9WDwhWunNAHPD3Baj
+    
+    $ctrl.getName = function() {
+        var name = document.getElementById('artistname').value;
+        ExampleService.getData(name).then(function(result) {
+            console.log('result: ', result);
+            $ctrl.exampleVariable = result;
+            $ctrl.artist = $ctrl.exampleVariable['data']['artists']['0']['name']
+            console.log('example var: ', $ctrl.exampleVariable);
+        });
+    }
+    
     // Call the getData function: getData is an async request
     ExampleService.getData().then(function(result) {
+        /*
         console.log('result: ', result);
         $ctrl.exampleVariable = result;
-        $ctrl.artist = $ctrl.exampleVariable['data']['artists']['0']['name']
-        console.log($ctrl.artist);
+        $ctrl.artist = document.getElementById('artist').value
+        //console.log($ctrl.artist);
+        //$ctrl.artist = $ctrl.exampleVariable['data']['artists']['0']['name']
         console.log('example var: ', $ctrl.exampleVariable);
+        */
     });
     
 }]);
@@ -55,14 +70,15 @@ function ExampleService($http) {
     this.getData = getData;
     
     // Function to get data from 3rd party API
-    function getData() {
+    function getData(albumID) {
+        console.log(albumID);
         return $http({
             method: 'GET',
-            url: 'https://api.spotify.com/v1/albums/0sNOF9WDwhWunNAHPD3Baj',
+            url: `https://api.spotify.com/v1/albums/${albumID}`,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQAZYnW0h5kcYUOhhg8M36HSbajgEIxfCgwGkcd6GyJq_fKdJgAWlmbxAn-hK3PrAuX5K0rCQOLtBKqFcm3K0Wnplii85v4cRuf5YAhV0tKPwJB6vZB7ZmBWcnjOQNo-J2bXj1xDZSHrVP8cGNTqJA'
+                'Authorization': 'Bearer BQDzN-M0b6p8vG3dUZQN_pivUouHW9Ml00F9O20bt-pwIJU1sd76LtKY57lkhKVyyvqNb-Tt_4W1XwkVjsPYPr_6FHXuxRtmrhkEV3aeJdEWOXwM4j-qcT0GeFhrX-EkUwXnpchxFZsf2dpIijyHQQ'
             }
         })
     }

@@ -4,7 +4,7 @@ body {
     padding: 40px;
     font-size: 14px;
     font-family: 'Overpass Mono';
-    background-color: #0f0f23;
+    background-color: #282927;
     color: #ebf3f7;
 }
 
@@ -46,7 +46,7 @@ body {
     
     list-style: none;   /* bullet type */
     margin: 0;
-    background: #804f4f;
+    background: #64ab1d;
     
     padding: 0;
 }
