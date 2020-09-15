@@ -1,10 +1,18 @@
 /* Creating the module, passing array of other dependent modules */
 angular.module('app', ['ngMaterial', 'ngMessages']);
 
+
+
+
+
 /*--------------------- Home Component ---------------------*/
+
 const home = {
     templateUrl: './home/home.html',
-    controller: 'HomeController'
+    controller: 'HomeController',
+    bindings: {
+        
+    }
 }
 
 // Home Component with Routing (Routed / Stateful), registering a component to the module
@@ -33,7 +41,7 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
             
         });
         
-        // Update json with artist genres
+        // Update json with artist genres (CAN WE DELET THIS)
         ExampleService.getData().then(function(result) {
             $ctrl.data = result.data;
             
@@ -41,22 +49,17 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
         
     }
     
-    // Call the getData function: getData is an async request
-    ExampleService.getData().then(function(result) {
-        /*
-        console.log('result: ', result);
-        $ctrl.exampleVariable = result;
-        $ctrl.artist = document.getElementById('artist').value
-        //console.log($ctrl.artist);
-        //$ctrl.artist = $ctrl.exampleVariable['data']['artists']['0']['name']
-        console.log('example var: ', $ctrl.exampleVariable);
-        */
-    });
-    
 }]);
+
 /*--------------------- Home Component ---------------------*/
 
+
+
+
+
+
 /*--------------------- Settings Component ---------------------*/
+
 const settings = {
     templateUrl: '',
     controller: 'SettingsController'
@@ -71,21 +74,28 @@ function SettingsController(ExampleService) {
 }
 SettingsController.$inject = ['ExampleService'];
 angular.module('app').controller('SettingsController', SettingsController);
+
 /*--------------------- Settings Component ---------------------*/
 
+
+
+
+
+
+
 /*--------------------- Example Service ---------------------*/
+
 // dependency injection: this depends on $http
+// 'this' refers to example service
+
 function ExampleService($http) {
-    // 'this' refers to example service
     
-    // Services are Singletons
-    // Properties
-    // Methods
+    // Method declarations
     this.getData = getData;
     this.searchArtist = searchArtist;
     this.postData = postData;
     
-    // Search for an artist
+    // Method: Search for an artist
     function searchArtist(artist_name) {
         console.log(artist_name);
         return $http({
@@ -94,12 +104,12 @@ function ExampleService($http) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQBxgZwnyLnLR1JJ-G4ohmRE0R2_75WfweoYWGlzZTIn81rIZDMjfi9mjEx_WHjHN7cUbCvc8-x7wHlr0r8Ugz3aHeUDGUeSgmhDNjdbCY1vlhP5o7CkIPdpQ-vuKoGWVodT-ZqppdKBJM_Dp7tacw'
+                'Authorization': 'Bearer BQAWLt6AO78XQyb8_uQNk1_Etl1iZu9DO_sVAM1MY9YhWGJuWxCJ-1OXQJnoAvp4kaRXAlLoqRY5nUGXJ_O6SYUWKrWYsED7xpKjSf-q6b7g-r9M5Z6CkK-z_yTYiQ1IF2vfaaxEYV2kkm7yIoToBQ'
             }
         })
     }
     
-    // Get data
+    // Method: Get data from json file
     function getData() {
         return $http({
             method: 'GET',
@@ -107,7 +117,7 @@ function ExampleService($http) {
         })
     }
     
-    // Update data
+    // Method: Update data in json file
     function postData(data) {
         $http({
            method: "PUT",
@@ -116,9 +126,12 @@ function ExampleService($http) {
            headers: { 'Content-Type': 'application/json' }
         });
     }
+    
 }
+
 ExampleService.$inject = ['$http'];
 angular.module('app').service('ExampleService', ExampleService)
+
 /*--------------------- Example Service ---------------------*/
 
 
