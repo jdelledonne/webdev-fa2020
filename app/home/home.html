@@ -16,15 +16,19 @@
     <form novalidate>
         <label>Enter Artist Name: <input type="text" ng-model="searchartist" id="search_artist"/></label>
         <button ng-click="$ctrl.searchArtist()">Submit</button>
-    </form>
+    </form>w
 </div>
 
 <div>
-    <p>Searching for: {{ searchartist }} </p>
+    <p>Searching for: {{ searchartist }}</p>
 </div>
 
 <div>
-    <p>Artist ID:  {{ $ctrl.artist }} </p>
+    <p>Artist ID:  {{ $ctrl.artist }}</p>
+</div>
+
+<div>
+    <iframe src="https://open.spotify.com/embed/track/2HK5MzOuCmkJQlJYGCQpUU" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 </div>
 
 <!-- Footer -->

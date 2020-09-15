@@ -7,11 +7,13 @@ angular.module('app', ['ngMaterial', 'ngMessages']);
 
 /*--------------------- Home Component ---------------------*/
 
+// the child component will have the bindings
 const home = {
     templateUrl: './home/home.html',
     controller: 'HomeController',
     bindings: {
-        
+        data: '<',
+        onClick: '&'
     }
 }
 
@@ -23,6 +25,9 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
     const $ctrl = this;
     console.log('example service: ', ExampleService);
     
+    // Keep history of user searches
+    $ctrl.history = [];
+    
     $ctrl.searchArtist = function() {
         
         // Get artist information
@@ -32,18 +37,15 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
             $ctrl.exampleVariable = result;
             $ctrl.artist = $ctrl.exampleVariable['data']['artists']['items']['0']['id'];
             
+            $ctrl.history.push($ctrl.artist);
+            console.log($ctrl.history);
+            
             ExampleService.getData().then(function(result) {
                 $ctrl.data = result.data;
                 $ctrl.data['artists'].push(`${$ctrl.artist}`);
                 console.log($ctrl.data);
                 ExampleService.postData($ctrl.data);
             });
-            
-        });
-        
-        // Update json with artist genres (CAN WE DELET THIS)
-        ExampleService.getData().then(function(result) {
-            $ctrl.data = result.data;
             
         });
         
