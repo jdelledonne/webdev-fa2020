@@ -15,16 +15,30 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
     const $ctrl = this;
     console.log('example service: ', ExampleService);
     
-    // 0sNOF9WDwhWunNAHPD3Baj
-    
-    $ctrl.getName = function() {
-        var name = document.getElementById('artistname').value;
-        ExampleService.getData(name).then(function(result) {
+    $ctrl.searchArtist = function() {
+        
+        // Get artist information
+        var name = document.getElementById('search_artist').value;
+        ExampleService.searchArtist(name).then(function(result) {
             console.log('result: ', result);
             $ctrl.exampleVariable = result;
-            $ctrl.artist = $ctrl.exampleVariable['data']['artists']['0']['name']
-            console.log('example var: ', $ctrl.exampleVariable);
+            $ctrl.artist = $ctrl.exampleVariable['data']['artists']['items']['0']['id'];
+            
+            ExampleService.getData().then(function(result) {
+                $ctrl.data = result.data;
+                $ctrl.data['artists'].push(`${$ctrl.artist}`);
+                console.log($ctrl.data);
+                ExampleService.postData($ctrl.data);
+            });
+            
         });
+        
+        // Update json with artist genres
+        ExampleService.getData().then(function(result) {
+            $ctrl.data = result.data;
+            
+        });
+        
     }
     
     // Call the getData function: getData is an async request
@@ -68,19 +82,39 @@ function ExampleService($http) {
     // Properties
     // Methods
     this.getData = getData;
+    this.searchArtist = searchArtist;
+    this.postData = postData;
     
-    // Function to get data from 3rd party API
-    function getData(albumID) {
-        console.log(albumID);
+    // Search for an artist
+    function searchArtist(artist_name) {
+        console.log(artist_name);
         return $http({
             method: 'GET',
-            url: `https://api.spotify.com/v1/albums/${albumID}`,
+            url: `https://api.spotify.com/v1/search?q=${artist_name}&type=artist`,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQDzN-M0b6p8vG3dUZQN_pivUouHW9Ml00F9O20bt-pwIJU1sd76LtKY57lkhKVyyvqNb-Tt_4W1XwkVjsPYPr_6FHXuxRtmrhkEV3aeJdEWOXwM4j-qcT0GeFhrX-EkUwXnpchxFZsf2dpIijyHQQ'
+                'Authorization': 'Bearer BQBxgZwnyLnLR1JJ-G4ohmRE0R2_75WfweoYWGlzZTIn81rIZDMjfi9mjEx_WHjHN7cUbCvc8-x7wHlr0r8Ugz3aHeUDGUeSgmhDNjdbCY1vlhP5o7CkIPdpQ-vuKoGWVodT-ZqppdKBJM_Dp7tacw'
             }
         })
+    }
+    
+    // Get data
+    function getData() {
+        return $http({
+            method: 'GET',
+            url: 'data.json'
+        })
+    }
+    
+    // Update data
+    function postData(data) {
+        $http({
+           method: "PUT",
+           url: "data.json",
+           data: data,
+           headers: { 'Content-Type': 'application/json' }
+        });
     }
 }
 ExampleService.$inject = ['$http'];

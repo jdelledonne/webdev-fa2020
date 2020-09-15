@@ -9,22 +9,22 @@
 </ul>
 <br>
 <hr>
+<br>
 
 <!-- Body -->
 <div>
-    <h1> {{ $ctrl.artist }} </h1>
-</div>
-
-<div>
     <form novalidate>
-        <label>Enter Album ID: <input type="text" ng-model="artistname" id="artistname"/></label>
-        <button ng-click="$ctrl.getName()">Submit</button>
+        <label>Enter Artist Name: <input type="text" ng-model="searchartist" id="search_artist"/></label>
+        <button ng-click="$ctrl.searchArtist()">Submit</button>
     </form>
-    
 </div>
 
 <div>
-    <p> {{ artistname }}</p>
+    <p> {{ searchartist }} </p>
+</div>
+
+<div>
+    <p>Artist ID:  {{ $ctrl.artist }} </p>
 </div>
 
 <!-- Footer -->
