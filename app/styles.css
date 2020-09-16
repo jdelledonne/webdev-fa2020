@@ -6,6 +6,11 @@ body {
     font-family: 'Overpass Mono';
     background-color: #282927;
     color: #ebf3f7;
+    resize: both;
+}
+
+html {
+    background-color: #282927;
 }
 
 .list-inline {
@@ -52,7 +57,7 @@ main {
     /* Basic settings */
     max-width: 1200px;
     margin: 30px auto;
-    padding: 0 20px;
+    padding: auto 20px;
     width: 100%;
     
     /* CSS Grid setup */
