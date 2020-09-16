@@ -23,32 +23,33 @@ angular.module('app').component('home', home);
 // Home Controller with dependency injection using the array method
 angular.module('app').controller('HomeController', ['ExampleService', function (ExampleService) {
     const $ctrl = this;
-    console.log('example service: ', ExampleService);
     
     // Keep history of user searches
     $ctrl.history = [];
     
+    // Search for an artist
     $ctrl.searchArtist = function() {
-        
-        // Get artist information
         var name = document.getElementById('search_artist').value;
         ExampleService.searchArtist(name).then(function(result) {
+            // Search Spotify database for artist name
             console.log('result: ', result);
-            $ctrl.exampleVariable = result;
-            $ctrl.artist = $ctrl.exampleVariable['data']['artists']['items']['0']['id'];
+            $ctrl.searchResult = result;
+            $ctrl.artist = $ctrl.searchResult['data']['artists']['items']['0'];
+            $ctrl.artistID = $ctrl.searchResult['data']['artists']['items']['0']['id'];
             
+            // Update search history with artist object
             $ctrl.history.push($ctrl.artist);
             console.log($ctrl.history);
             
+            // Example of how to load json data
+            /*
             ExampleService.getData().then(function(result) {
                 $ctrl.data = result.data;
                 $ctrl.data['artists'].push(`${$ctrl.artist}`);
                 console.log($ctrl.data);
-                ExampleService.postData($ctrl.data);
             });
-            
+            */
         });
-        
     }
     
 }]);
@@ -60,25 +61,49 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
 
 
 
-/*--------------------- Settings Component ---------------------*/
+/*--------------------- Artist Block Component ---------------------*/
 
-const settings = {
-    templateUrl: '',
-    controller: 'SettingsController'
+const artistblock = {
+    templateUrl: './artistblock/artistblock.html',
+    controller: 'ArtistBlockController',
+    bindings: {
+        artist: '<'
+    }
 }
 
-// Settings Component with Routing (Routed / Stateful)
-angular.module('app').component('settings', settings)
+// Artist Block Component with Routing (Routed / Stateful)
+angular.module('app').component('artistblock', artistblock)
 
-// Settings Controller with dependency injection using $inject method
-function SettingsController(ExampleService) {
+// Artist Block Controller with dependency injection using $inject method
+function ArtistBlockController(ExampleService) {
 
 }
-SettingsController.$inject = ['ExampleService'];
-angular.module('app').controller('SettingsController', SettingsController);
+ArtistBlockController.$inject = ['ExampleService'];
+angular.module('app').controller('ArtistBlockController', ArtistBlockController);
 
-/*--------------------- Settings Component ---------------------*/
+/*--------------------- Artist Block Component ---------------------*/
 
+/*--------------------- History Component ---------------------*/
+
+const history = {
+    templateUrl: './history/history.html',
+    controller: 'HistoryController',
+    bindings: {
+        artists: '<'
+    }
+}
+
+// Artist Block Component with Routing (Routed / Stateful)
+angular.module('app').component('history', history)
+
+// Artist Block Controller with dependency injection using $inject method
+function HistoryController(ExampleService) {
+
+}
+HistoryController.$inject = ['ExampleService'];
+angular.module('app').controller('HistoryController', HistoryController);
+
+/*--------------------- History Component ---------------------*/
 
 
 
@@ -106,7 +131,7 @@ function ExampleService($http) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQAWLt6AO78XQyb8_uQNk1_Etl1iZu9DO_sVAM1MY9YhWGJuWxCJ-1OXQJnoAvp4kaRXAlLoqRY5nUGXJ_O6SYUWKrWYsED7xpKjSf-q6b7g-r9M5Z6CkK-z_yTYiQ1IF2vfaaxEYV2kkm7yIoToBQ'
+                'Authorization': 'Bearer BQBZY5fnL5NjQNs-2j2faSWMPv0106__MP_X_SUDuVu8tOwRa8Z0vbth0eQtRzzbVCeBYkS7NUx789M0u1dr8r_CGvUcakjcWGv_drpYvV5GJps2CxmLQ_7JULYIL9vieQ19EfY6AS26IHqZ2ktabA'
             }
         })
     }

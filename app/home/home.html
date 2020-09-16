@@ -11,25 +11,17 @@
 <hr>
 <br>
 
-<!-- Body -->
+<!-- Search Area -->
 <div>
     <form novalidate>
         <label>Enter Artist Name: <input type="text" ng-model="searchartist" id="search_artist"/></label>
         <button ng-click="$ctrl.searchArtist()">Submit</button>
-    </form>w
+    </form>
 </div>
 
-<div>
-    <p>Searching for: {{ searchartist }}</p>
-</div>
+<!-- Search History -->
 
-<div>
-    <p>Artist ID:  {{ $ctrl.artist }}</p>
-</div>
-
-<div>
-    <iframe src="https://open.spotify.com/embed/track/2HK5MzOuCmkJQlJYGCQpUU" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-</div>
+<history artists="$ctrl.history"></history>
 
 <!-- Footer -->
 <br>
