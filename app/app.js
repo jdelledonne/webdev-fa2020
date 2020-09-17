@@ -1,10 +1,8 @@
 /* Creating the module, passing array of other dependent modules */
 angular.module('app', ['ngMaterial', 'ngMessages']);
 
-
 /*--------------------- Home Component ---------------------*/
 
-// the child component will have the bindings
 const home = {
     templateUrl: './home/home.html',
     controller: 'HomeController',
@@ -18,7 +16,7 @@ const home = {
 angular.module('app').component('home', home);
 
 // Home Controller with dependency injection using the array method
-angular.module('app').controller('HomeController', ['ExampleService', function (ExampleService) {
+angular.module('app').controller('HomeController', ['SpotifyService', function (SpotifyService) {
     const $ctrl = this;
     
     // Keep history of user searches
@@ -26,7 +24,7 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
     
     // Add popular spotify playlists when page loads 
     angular.element(document).ready(function () {
-        ExampleService.getData().then(function(result) {
+        SpotifyService.getData().then(function(result) {
             $ctrl.data = result.data; 
             
             // get playlist ids from data.json
@@ -35,16 +33,17 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
             $ctrl.globalViral = $ctrl.data['global-viral-50'];
             $ctrl.base = "https://open.spotify.com/embed/playlist/"; 
             
-            // set html soures to load playlists
+            // set html sources to load playlists
             document.getElementById('usTop').src = $ctrl.base + $ctrl.data['us-top-50']; 
             document.getElementById('globalTop').src = $ctrl.base + $ctrl.data['global-top-50']; 
             document.getElementById('globalViral').src = $ctrl.base + $ctrl.data['global-viral-50']; 
         }); 
     }); 
     
+    // Search for an artist using Spotify API Search feature
     $ctrl.searchArtist = function() {
         var name = document.getElementById('search_artist').value;
-        ExampleService.searchArtist(name).then(function(result) {
+        SpotifyService.searchArtist(name).then(function(result) {
             // Search Spotify database for artist name
             console.log('result: ', result);
             $ctrl.searchResult = result;
@@ -54,18 +53,7 @@ angular.module('app').controller('HomeController', ['ExampleService', function (
             // update search history with artist object
             $ctrl.history.push($ctrl.artist);
             console.log($ctrl.history);
-            
-            /*
-            ExampleService.getData().then(function(result) {
-                $ctrl.data = result.data;
-                $ctrl.data['artists'].push(`${$ctrl.artist}`);
-                console.log($ctrl.data);
-                ExampleService.postData($ctrl.data);
-            });
-            */
-            
         });
-        
     }
     
 }]);
@@ -93,10 +81,10 @@ const artistblock = {
 angular.module('app').component('artistblock', artistblock)
 
 // Artist Block Controller with dependency injection using $inject method
-function ArtistBlockController(ExampleService) {
+function ArtistBlockController(SpotifyService) {
 
 }
-ArtistBlockController.$inject = ['ExampleService'];
+ArtistBlockController.$inject = ['SpotifyService'];
 angular.module('app').controller('ArtistBlockController', ArtistBlockController);
 
 /*--------------------- Artist Block Component ---------------------*/
@@ -117,7 +105,7 @@ angular.module('app').component('history', history)
 var colorPicker = 0; 
 
 // Artist Block Controller with dependency injection using $inject method
-function HistoryController(ExampleService) {
+function HistoryController(SpotifyService) {
     this.notifyClick = function(event) {
         console.log(event);
         console.log("CLICKED");
@@ -133,7 +121,7 @@ function HistoryController(ExampleService) {
         colorPicker += 1; 
     }
 }
-HistoryController.$inject = ['ExampleService'];
+HistoryController.$inject = ['SpotifyService'];
 angular.module('app').controller('HistoryController', HistoryController);
 
 /*--------------------- History Component ---------------------*/
@@ -143,12 +131,9 @@ angular.module('app').controller('HistoryController', HistoryController);
 
 
 
-/*--------------------- Example Service ---------------------*/
+/*--------------------- Spotify Service ---------------------*/
 
-// dependency injection: this depends on $http
-// 'this' refers to example service
-
-function ExampleService($http) {
+function SpotifyService($http) {
     
     // Method declarations
     this.getData = getData;
@@ -163,7 +148,7 @@ function ExampleService($http) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQCdvu9oJ1WTjRTBEP_0Z6oMU-cvX3Od4MinnAjvtsfmR27FGgTWlPP4FCYT7u4PRdRU0Kcz6XMOh2mvyBuz7qlY695feJtRq04H3XqoPTAEsvYON3mWMdZeH5lhJqNLlK19YVdQwoe4qxjVawCKNw'
+                'Authorization': 'Bearer BQCwOzpY-DkQG1MiDqQBBmwgmGMSmK37Wz9HfQww5ieBGS9jAUCxVopJU324VB8y1TytWjZ6GWFBj5Xn1sPm_JJbRqNbdsquChCmy-bbHMLPEPs-VXvXryRDuUYZQYNTdwG_bMutebQeCWYL7vMaYQ'
             }
         })
     }
@@ -178,7 +163,7 @@ function ExampleService($http) {
     
 }
 
-ExampleService.$inject = ['$http'];
-angular.module('app').service('ExampleService', ExampleService)
+SpotifyService.$inject = ['$http'];
+angular.module('app').service('SpotifyService', SpotifyService)
 
-/*--------------------- Example Service ---------------------*/
+/*--------------------- Spotify Service ---------------------*/

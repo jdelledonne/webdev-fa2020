@@ -21,8 +21,8 @@ html {
 }
 
 .link {
-    text-decoration: none;
-    color: #3babe3;
+    text-decoration: underline;
+    color: #ebf3f7;
 }
 
 .link:hover {
@@ -75,7 +75,7 @@ artistblock {
     background-color: black; 
 }
 
-/* colors changed with click 
+/* 
 artistblock:nth-child(odd) {
     background-color: #55bbe9;
 }
