@@ -1,0 +1,8 @@
+<!--defines each individual element of the search history-->
+<h2 class="center-text">{{ $ctrl.artist.name }}</h2>
+<div class="center-text">
+    <img src="{{$ctrl.artist.images[0].url}}" height="300" width="300" ng-click="$ctrl.onClick()">
+</div>
+<p class="center-text">Followers: {{ $ctrl.artist.followers.total }}</p>
+<p class="center-text">Genres: {{ $ctrl.artist.genres }}</p>
+<p class="center-text"><a href="{{$ctrl.artist.external_urls.spotify}}" target="_blank" class="link">Link to Spotify page</a></p>
