@@ -21,8 +21,8 @@ html {
 }
 
 .link {
-    text-decoration: none;
-    color: #3babe3;
+    text-decoration: underline;
+    color: #ebf3f7;
 }
 
 .link:hover {
@@ -77,11 +77,11 @@ artistblock {
 }
 
 artistblock:nth-child(odd) {
-    background-color: #55bbe9;
+    background-color: #2d89ad;
 }
 
 artistblock:nth-child(even) {
-    background-color: #64ab1d;
+    background-color: #1DB954;
 }
 
 /* ----- Navigation Bar Settings ----- */
@@ -94,7 +94,7 @@ artistblock:nth-child(even) {
     
     list-style: none;   /* bullet type */
     margin: 0;
-    background: #64ab1d;
+    background: #1DB954;
     
     padding: 0;
 }

@@ -1,3 +1,4 @@
+<p>Here is a history of your artist searches:</p>
 <main>
-    <artistblock ng-repeat="artist in $ctrl.artists track by $index" artist="artist"></artistblock>
+    <artistblock ng-repeat="artist in $ctrl.artists track by $index" artist="artist" on-click="$ctrl.notifyClick($event);"></artistblock>
 </main>

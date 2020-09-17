@@ -67,7 +67,8 @@ const artistblock = {
     templateUrl: './artistblock/artistblock.html',
     controller: 'ArtistBlockController',
     bindings: {
-        artist: '<'
+        artist: '<',
+        onClick: '&'
     }
 }
 
@@ -98,7 +99,10 @@ angular.module('app').component('history', history)
 
 // Artist Block Controller with dependency injection using $inject method
 function HistoryController(ExampleService) {
-
+    this.notifyClick = function(event) {
+        console.log(event);
+        console.log("CLICKED");
+    }
 }
 HistoryController.$inject = ['ExampleService'];
 angular.module('app').controller('HistoryController', HistoryController);
@@ -120,7 +124,6 @@ function ExampleService($http) {
     // Method declarations
     this.getData = getData;
     this.searchArtist = searchArtist;
-    this.postData = postData;
     
     // Method: Search for an artist
     function searchArtist(artist_name) {
@@ -131,7 +134,7 @@ function ExampleService($http) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQBZY5fnL5NjQNs-2j2faSWMPv0106__MP_X_SUDuVu8tOwRa8Z0vbth0eQtRzzbVCeBYkS7NUx789M0u1dr8r_CGvUcakjcWGv_drpYvV5GJps2CxmLQ_7JULYIL9vieQ19EfY6AS26IHqZ2ktabA'
+                'Authorization': 'Bearer BQCdvu9oJ1WTjRTBEP_0Z6oMU-cvX3Od4MinnAjvtsfmR27FGgTWlPP4FCYT7u4PRdRU0Kcz6XMOh2mvyBuz7qlY695feJtRq04H3XqoPTAEsvYON3mWMdZeH5lhJqNLlK19YVdQwoe4qxjVawCKNw'
             }
         })
     }
@@ -142,16 +145,6 @@ function ExampleService($http) {
             method: 'GET',
             url: 'data.json'
         })
-    }
-    
-    // Method: Update data in json file
-    function postData(data) {
-        $http({
-           method: "PUT",
-           url: "data.json",
-           data: data,
-           headers: { 'Content-Type': 'application/json' }
-        });
     }
     
 }
