@@ -1,0 +1,26 @@
+This code uses the Spotify development API, which means a Spotify token is required. The token must be added at the bottom of the app.js file in the searchArtist function, specifically in the 'Authorization' field (on line 166). Note that the token should be placed after 'Bearer' with a space separating the two.  The code snippit is copied below: 
+
+
+    // Method: Search for an artist
+    function searchArtist(artist_name) {
+        console.log(artist_name);
+        return $http({
+            method: 'GET',
+            url: `https://api.spotify.com/v1/search?q=${artist_name}&type=artist`,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer BQBXGhecXj3EK1QsT3QECtlCW9bvH6g2ynVLJkDrujM3Py_aN6HW35u67Dfm0K3at13wAV3tvYX8n-EDsyQ8ouS_q5kW_hMC3whkGBZfS4Os2RD5CW64QgZmGVFEXzaAnTbhD9jrdVlYoX122A'
+            }
+        })
+    }
+    
+    A fresh token is provided for grader use: 
+    
+    BQAVdCd0iwrAAX6k36jv0pIZRXO9-PGQfdGCk9HOMRzAeIVIiFAbYAaqq5_nXB97NCZOC4utKX8tdTiD5Hk-0ZHAJueVkxpAXxBlaKWAWQPW_jbHeIXmNuZxeB6PDghW9gs464AERrIKvTf7Jg
+    
+    Simply copy and paste the fresh token, save the file, and the page will work as desired.  
+    
+    If for some reason the above token does not work, please reach out to jdelledo@nd.edu and jbailey7@nd.edu and we will get you a fresh token.  
+    
+    In regards to the page itself, the navbar at the top currently does not have any functionality. However, below that, the search bar will display any artist on Spotify that is searched.  Previous searches will persist, as a search history of sorts.  At the bottom of the page are three popular spotify playlists.  Spotify updates these playlists, and they will always be present at the bottom of the page. 
